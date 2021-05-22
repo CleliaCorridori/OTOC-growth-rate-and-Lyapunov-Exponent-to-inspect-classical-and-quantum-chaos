@@ -1,13 +1,9 @@
 # Functions to compute OTOC v and Lyapunov exponent
 from numpy import *
-import math
-import matplotlib.pyplot as plt
-from joblib import Parallel, delayed
 from scipy.optimize import curve_fit
-from scipy.interpolate import interp1d
-from scipy.signal import savgol_filter
-from scipy.signal import medfilt
 import random as rand
+
+
 ############
 # 1. Quantum CGR numerically computed
 #computation of the last kick to use to obtain lambda fitting the OTOC
@@ -26,22 +22,40 @@ def lyapQ_comp(Kick, K,mean_C):
     ''' Function to set the intervals for the fit and to compute the fit''' 
     lyap=zeros(len(K))
     for kk in range(len(K)):
-        if kk < 9:
+        if kk < 7:
             ii=25
             jj=-1
-        if (kk <16 and kk>=9):
-            ii=10
-            jj=15
-        if (kk <20 and kk>=16):
-            ii=7
-            jj=10
-        if (kk <23 and kk>=20):
+        if (kk==7 or kk==8):
+            ii=16
+            jj=23
+        if (kk==9 or kk==10):
+            ii=15
+            jj=20
+        if (kk <13 and kk>=11):
+            ii=14
+            jj=18
+        if (kk <16 and kk>=13):
+            ii=11
+            jj=16
+        if (kk==16 or kk==17):
+            ii=8
+            jj=13
+        if (kk <20 and kk>=18):
             ii=5
+            jj=12
+        if kk==20:
+            ii=5
+            jj=9
+        if kk==21:
+            ii=5
+            jj=8
+        if kk==22:
+            ii=4
             jj=8
         if (kk <26 and kk>=23):
             ii=3
-            jj=6
-        if (kk <29 and kk>=26):
+            jj=7
+        if (kk <29 and kk>=25):
             ii=3
             jj=5
         if (kk <33 and kk>=29):

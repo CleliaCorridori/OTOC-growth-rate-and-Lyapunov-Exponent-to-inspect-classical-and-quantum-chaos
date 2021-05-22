@@ -1,12 +1,6 @@
 from numpy import *
 import math
-import matplotlib.pyplot as plt
 from joblib import Parallel, delayed
-from scipy.optimize import curve_fit
-from scipy.interpolate import interp1d
-from scipy.signal import savgol_filter
-from scipy.signal import medfilt
-import random as rand
 
 def nextpow2(x):
     #computes the exponent of the first power of 2 >=x
@@ -129,6 +123,37 @@ def mean_otoc(N,T,K,Nkicks,trials,meanOTOC=True):
         out=C
     return(out)
 
+
+def mean_otoc_heff(N,T,K,Nkicks,trials,meanOTOC=True):
+    '''function to set the useful discretizations and compute OTOC and its mean (set meanOTOC to True if you want to compute it)'''
+    trials=int(trials)
+    # discretization p
+    dp=zeros([N])
+    for i in range(0,N):
+        dp[i]=i-(N/2)
+
+    # initial conditions
+    p_state=zeros(N,dtype = 'complex_')
+    sigma=4
+    # OTOC computation
+    C=zeros([Nkicks,len(T),trials])
+    #computes slightly different inital states in order to compute the mean OTOC 
+    for ii in range(trials):
+        #random initial states
+        p0 = random.uniform(-pi,pi,N)
+        p0=0
+        p_state=(1/sqrt(2*pi*sigma**2*N**2))*exp(-((p0-dp)**2)/(2*sigma**2)) # gaussian
+        
+        for jj in range(len(T)):
+            C[:,jj,ii]=Parallel(n_jobs=1)(delayed(OTOC)(p_state,aa,dp,N,K,T[jj]) for aa in range(1,Nkicks+1))
+        print('Trial #',ii)
+
+    mean_C = abs(mean(C,2))
+    if meanOTOC==True:
+        out=mean_C
+    else:
+        out=C
+    return(out)
 ################################################################
 ################################################################
 ################################################################
