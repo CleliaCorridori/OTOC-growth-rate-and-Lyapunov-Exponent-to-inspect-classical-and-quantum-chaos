@@ -18,7 +18,7 @@ def quantumCGR_num(C,kicks):
     -quantum CGR'''
     quant_CGR=zeros(len(kicks)-1)
     for ii in range(1,len(kicks)):
-        quant_CGR[ii-1] = mean(log(C[ii,:]/C[ii-1,:]))
+        quant_CGR[ii-1] = mean(log(C[ii]/C[ii-1]))
     return(quant_CGR)
 
 def CGR_fit_lin(x,a):
@@ -84,7 +84,7 @@ def quantumCGR_fit(Kick, K, C_val):
             ii=0
             jj=2
 
-        CGR_num=quantumCGR_num(C_val[:,kk,:],Kick) # numerical CGR
+        CGR_num=quantumCGR_num(C_val[:,kk],Kick) # numerical CGR
         CGR_fit[kk], cov = curve_fit(CGR_fit_lin, Kick[ii:jj], CGR_num[ii:jj]) #gitted CGR*2
 
     CGR_Q = CGR_fit/2
