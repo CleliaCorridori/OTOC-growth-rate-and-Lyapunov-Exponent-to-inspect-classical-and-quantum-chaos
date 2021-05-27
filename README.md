@@ -17,7 +17,7 @@ It contains the functions to compute:
 
 "OTOC.ipynb"
 In this notebook is computed the OTOC for different values of the Kick Strength, K, and it is plotted for a selected number of kicks.
-Here is plotted also ln(OTOC)/2t for different values of the Kick Strength, K.ù
+Here is plotted also ln(OTOC)/2t for different values of the Kick Strength, K.
 
 "OTOCheff.ipynb"
 In this notebook is computed the OTOC for different values of h_eff, and it is plotted for a selected number of kicks.
