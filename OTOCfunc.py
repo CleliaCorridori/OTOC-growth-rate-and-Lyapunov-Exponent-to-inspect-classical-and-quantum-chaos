@@ -116,6 +116,7 @@ def mean_otoc(N,T,K,Nkicks,trials,meanOTOC=True):
     out: it is the the OTOC for each trial or the mean value of the OTOC, depending on the variable "meanOTOC"   
     '''
     # discretization of the momentum p
+    N=2*N
     dp=zeros([N])
     for i in range(0,N):
         dp[i]=i-(N/2)
@@ -173,7 +174,6 @@ def mean_otoc_heff(N,T,K,Nkicks,trials,meanOTOC=True):
     for ii in range(trials):
         #random initial states
         p0 = random.uniform(-pi,pi,N)
-        p0=0
         p_state=(1/sqrt(2*pi*sigma**2*N**2))*exp(-((p0-dp)**2)/(2*sigma**2)) # gaussian
         
         for jj in range(len(T)):
