@@ -14,7 +14,7 @@ def save(input_info,name):
 def OTOC(p_state,t,dp,N,K,T):
     '''Function to compute the OTOC on the state p_state at the time t with P(0)=dp.
     input: 
-    p_state: State in momentum representation
+    p_state: Initial tate in momentum representation
     t: discretized time as number of kicks
     dp: initial momentum at time t=0
     N: number of eigenstate
@@ -41,8 +41,7 @@ def OTOC(p_state,t,dp,N,K,T):
 #####################################################################################################################
 
 def Ut(p_state,sign,Nkicks,dp,N,K,T=2**-7):
-    ''' Function to compute the Floquet operator implementing the time evolution operator, U, and its 
-    Hermitian coniugate, U dagger, and using the Fourier transform and antitransform.
+    ''' Function to compute the Floquet operator U and its Hermitian coniugate, U dagger.
     The computation are implemented considering the mass m=1
     input: 
     p_state: State in momentum representation
@@ -116,7 +115,6 @@ def mean_otoc(N,T,K,Nkicks,trials,meanOTOC=True):
     out: it is the the OTOC for each trial or the mean value of the OTOC, depending on the variable "meanOTOC"   
     '''
     # discretization of the momentum p
-    N=2*N
     dp=zeros([N])
     for i in range(0,N):
         dp[i]=i-(N/2)
