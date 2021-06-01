@@ -2,8 +2,10 @@ from numpy import *
 import math
 from joblib import Parallel, delayed
 
+
 #####################################################################################################################
-# Here there is a set of function to compute the OTOC for the quantum kicked rotor
+# Here there is a set of function to compute the OTOC for the quantum kiched rotator as in file Otocfunc.py, but here  
+# when performing the FFT we use the shift of the Ft and IFT
 
 def OTOC(p_state,t,dp,N,K,T):
     '''Function to compute the OTOC on the state p_state at the time t with P(0)=dp.
@@ -68,27 +70,27 @@ def Ut(p_state,sign,Nkicks,dp,N,K,T=2**-7):
     temp_x=zeros([N],dtype = 'complex_')
 
     if sign==1: # U dagger
-        x_state=(sqrt(N)*fft.ifft(p_state))
+        x_state=fft.ifftshift(sqrt(N)*fft.ifft(fft.ifftshift(p_state)))
         
         for j in range(1,Nkicks+1):
             #Kick
             temp_x=Uv*x_state
             #Fourier
-            temp_p=(1/sqrt(N)*fft.fft(temp_x)) 
+            temp_p=fft.fftshift(1/sqrt(N)*fft.fft(fft.fftshift(temp_x)))
             #Free evolution
             p_state=U0*temp_p
             #AntiFourier
-            x_state=(sqrt(N)*fft.ifft(p_state)) 
+            x_state=fft.ifftshift(sqrt(N)*fft.ifft(fft.ifftshift(p_state)))
     if sign==2: #U
         for j in range(1,Nkicks+1):
             #Free evolution
             temp_p=U0*p_state
             #AntiFourier
-            temp_x=sqrt(N)*fft.ifft(temp_p)
+            temp_x=fft.ifftshift(sqrt(N)*fft.ifft(fft.ifftshift(temp_p)))
             #Kick
             x_state=Uv*temp_x
             #Fourier
-            p_state=(1/sqrt(N)*fft.fft(x_state))
+            p_state=fft.fftshift(1/sqrt(N)*fft.fft(fft.fftshift(x_state)))
            
     return(p_state)
 

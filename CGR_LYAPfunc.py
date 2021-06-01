@@ -3,12 +3,11 @@ from scipy.optimize import curve_fit
 import random as rand
 
 # Here there is a set of functions to compute:
-# 1- the OTOC growth rate, called CGR, for the quantum kicked rotator;
-# 2- the OTOC growth rate, called CGR, for the classical kicked rotator;
-# 3- the Lyapunv exponent computed numerically for the classical kicked rotator.
+# 1- the OTOC growth rate, called CGR, for the quantum kicked rotor;
+# 2- the OTOC growth rate, called CGR, for the classical kicked rotor;
+# 3- the Lyapunv exponent computed numerically for the classical kicked rotor.
 
 # 1. Quantum CGR numerically computed
-#computation of the last kick to use to obtain lambda fitting the OTOC
 def quantumCGR_num(C,kicks):
     '''Function to compute numerically the CGR of the OTOC for each Kick
     input:
@@ -26,10 +25,10 @@ def CGR_fit_lin(x,a):
     return(a)
 
 def quantumCGR_fit(Kick, K, C_val):   
-    ''' Function to set the intervals for the fit of the quantum CGR and to compute the fit.
+    ''' Function to set the intervals for the fit of the quantum CGR and to compute it.
     input:
-    -Kick: vector of kics
-    -K: kick strength
+    -Kick: vector of kicks
+    -K: kicking strength
     -C_val: values of the OTOC
     -''' 
     CGR_fit=zeros(len(K))
@@ -40,7 +39,7 @@ def quantumCGR_fit(Kick, K, C_val):
             jj=-1
         if (kk==7 or kk==8):
             ii=16
-            jj=23
+            jj=24
         if (kk==9 or kk==10):
             ii=15
             jj=20
@@ -85,7 +84,7 @@ def quantumCGR_fit(Kick, K, C_val):
             jj=2
 
         CGR_num=quantumCGR_num(C_val[:,kk],Kick) # numerical CGR
-        CGR_fit[kk], cov = curve_fit(CGR_fit_lin, Kick[ii:jj], CGR_num[ii:jj]) #gitted CGR*2
+        CGR_fit[kk], cov = curve_fit(CGR_fit_lin, Kick[ii:jj], CGR_num[ii:jj]) #fitted CGR*2
 
     CGR_Q = CGR_fit/2
     return(CGR_Q)
@@ -101,7 +100,7 @@ def map_kr_CGR(x_i, p_i, dx_i, dp_i, Nkicks, K):
     -dx_i: initial displacement for the position
     -dp:i: initial displacement for the momentum
     -Nkicks: number of kikcs
-    -K: kick strength
+    -K: kicking strength
     output:
     final square displacement'''
     #initialize useful quantities
@@ -134,9 +133,9 @@ def map_kr(x_i, p_i, dx_i, dp_i, Nkicks, K):
     -x_i: initial position
     -p_i: initial momentum
     -dx_i: initial displacement for the position
-    -dp:i: initial displacement for the momentum
+    -dp_i: initial displacement for the momentum
     -Nkicks: number of kikcs
-    -K: kick strength
+    -K: kicking strength
     output:
     -dx_f: final displacement for the position
     -dp_f: final displacement for the momentum
@@ -155,6 +154,7 @@ def map_kr(x_i, p_i, dx_i, dp_i, Nkicks, K):
     dp[0]=dp_i
     # comupte the evolution
     for tt in range(Nkicks):
+        # map
         p[tt+1]=(p[tt]+K*sin(x[tt]))%(2*pi)
         x[tt+1]=(x[tt]+p[tt+1])%(2*pi)
         # tangent map
@@ -170,14 +170,14 @@ def map_kr(x_i, p_i, dx_i, dp_i, Nkicks, K):
 
 
 def evoluz(P, x_i, p_i, dx_i, dp_i, Nkicks, K):
-    '''Function to compute the evolution of P steps (eachone made of Nsteps) for the classical KR.
+    '''Function to compute the evolution of P steps (each one made of Nkicks) for the classical KR.
     input:
     -x_i: initial position
     -p_i: initial momentum
     -dx_i: initial displacement for the position
-    -dp:i: initial displacement for the momentum
+    -dp_i: initial displacement for the momentum
     -Nkicks: number of kikcs
-    -K: kick strength
+    -K: kicking strength
     output:
     n_d: mean square value of the displacement
     '''
