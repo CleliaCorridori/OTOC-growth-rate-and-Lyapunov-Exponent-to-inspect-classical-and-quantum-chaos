@@ -1,5 +1,5 @@
 # QuantumInformation_project 2020/2021
-## Out-of-Time-Order-Correlator growth rate and Lyapunov Exponent to inspect classical and quantum chaos
+## Out-of-Time-Ordered-Correlator growth rate and Lyapunov Exponent to inspect classical and quantum chaos
 Cristina Cicali, Clelia Corridori, Anna Steffinlongo
 
 In this folder are contained the Jupyter Notebook and the Python scripts to compute the Out-of-Time-Order-Correlator (OTOC)
