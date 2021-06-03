@@ -1,4 +1,4 @@
-In this folder are contained the Jupyter Notebook and the Python scripts to compute the Out-of-Time-Order-Correlator (OTOC)
+In this folder are contained the Jupyter Notebooks and the Python scripts to compute the Out-of-Time-Ordered Correlator's (OTOC)
 for the quantum Kicked Rotator and the Lyapunov exponent for the classical Kicked Rotator.
 
 "OTOCfunc.py" 
