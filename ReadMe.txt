@@ -33,7 +33,7 @@ In this notebook is computed the scrambling of a Gaussian wave-packet for Nkicks
 "ClassictrajectoriesKR.ipynb"
 In this notebook are computed the trajectories of the classical KR in the phase space
 
-"OTOCfunc.py" 
+"OTOCfuncShift.py" 
 This Python file is the same of OTOCfunc.py but, when performing the FFT library, here we use the shift of the FT and IFT
 
 "CGRandLE_fit.ipynb"
